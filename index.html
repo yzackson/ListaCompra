@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Adicionar Item</button>
+    <a type="button" class="btn btn-primary" href="./Untitled-1.html" target="_blank">Ver lista antiga</a>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="item-name" class="col-form-label">Item:</label>
+                            <input type="text" class="form-control" id="item">
+                        </div>
+                        <div class="mb-3">
+                            <label for="quantidade" class="col-form-label">Quantidade:</label>
+                            <input type="number" step="0.01" class="form-control" id="quantidade">
+                        </div>
+                        <div class="mb-3">
+                            <label for="unidade" class="col-form-label">Unidade:</label>
+                            <select name="Unidade" id="unidade">
+                                <option value="Pct">Pct</option>
+                                <option value="Kg">Kg</option>
+                                <option value="g">g</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="valor" class="col-form-label">Valor Unitário:</label>
+                            <input type="number" step="0.01" class="form-control" id="valor">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="salvarItem()">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table style="">
+        <thead>
+            <tr>
+                <td>Item</td>
+                <td>Quanidade</td>
+                <td>Valor Unitário</td>
+                <td>Valor Total</td>
+            </tr>
+        </thead>
+        <tbody id="tabela">
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <td id="soma_total">0</td>
+            </tr>
+        </tfoot>
+    </table>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+
+
+
+
+
+    <script>
+        /*
+        const exampleModal = document.getElementById('exampleModal')
+        if (exampleModal) {
+            exampleModal.addEventListener('show.bs.modal', event => {
+                // Button that triggered the modal
+                const button = event.relatedTarget
+                // Extract info from data-bs-* attributes
+                const recipient = button.getAttribute('data-bs-whatever')
+                // If necessary, you could initiate an Ajax request here
+                // and then do the updating in a callback.
+
+                // Update the modal's content.
+                const modalTitle = exampleModal.querySelector('.modal-title')
+                const modalBodyInput = exampleModal.querySelector('.modal-body input')
+
+                modalTitle.textContent = `New message to ${recipient}`
+                modalBodyInput.value = recipient
+            })
+        }
+        */
+
+        function salvarItem() {
+            item = document.getElementById('item');
+            quantidade = document.getElementById('quantidade');
+            unidade = document.getElementById('unidade');
+            valor = document.getElementById('valor');
+
+            nova_linha = document.createElement('tr');
+            coluna_item = document.createElement('td');
+            coluna_item.textContent = item.value;
+            coluna_quantidade = document.createElement('td');
+            coluna_quantidade.textContent = `${quantidade.value} ${unidade.value}`;
+            coluna_valor = document.createElement('td');
+            coluna_valor.textContent = `R$ ${valor.value}`;
+            coluna_valor_total = document.createElement('td');
+            coluna_valor_total.textContent = `R$ ${quantidade.value * valor.value}`;
+
+            nova_linha.append(coluna_item, coluna_quantidade, coluna_valor, coluna_valor_total);
+
+            tbody = document.getElementById("tabela");
+            tbody.append(nova_linha);
+
+            soma_total = document.getElementById('soma_total');
+            soma_total.textContent = parseInt(soma_total.textContent) + quantidade.value * valor.value;
+        }
+    </script>
+</body>
+
+</html>
